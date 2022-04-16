@@ -6,6 +6,9 @@ import {
   Param,
   Put,
   Delete,
+  HttpException,
+  HttpStatus,
+  BadRequestException,
 } from '@nestjs/common';
 import { TaskDTO } from './dto/task.dto';
 import { TaskService } from './task.service';
@@ -16,7 +19,10 @@ export class TaskController {
 
   @Post()
   create(@Body() taskDTO: TaskDTO) {
-    return this.taskService.create(taskDTO);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => reject('Something was wrong!'), 15000);
+    });
+    // return this.taskService.create(taskDTO);
   }
 
   @Get()
